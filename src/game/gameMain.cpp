@@ -1,18 +1,19 @@
 ﻿#include <raylib.h>
 #include "gameMain.h"
 #include <asserts.h>
-
 #include <iostream>
-#include <ostream>
+
+#include "assetManager.h"
 
 struct GameData
 {
-    Texture DirtTexture;
 } gameData;
+
+AssetManager assetManager;
 
 bool InitGame()
 {
-    gameData.DirtTexture = LoadTexture(RESOURCES_PATH "dirt.png");
+    assetManager.LoadAll();
 
     return true;
 }
@@ -24,9 +25,9 @@ bool UpdateGame()
     float deltaTime = GetFrameTime();
     if (deltaTime > MaxDeltaTime) { deltaTime = MaxDeltaTime; }
 
-    DrawTexturePro(gameData.DirtTexture, {
-                       0, 0, (float) gameData.DirtTexture.width,
-                       (float) gameData.DirtTexture.height
+    DrawTexturePro(assetManager.DirtTexture, {
+                       0, 0, (float) assetManager.DirtTexture.width,
+                       (float) assetManager.DirtTexture.height
                    }, {500, 500, 100, 100}, {0, 0}, 0, WHITE);
 
     return true;
